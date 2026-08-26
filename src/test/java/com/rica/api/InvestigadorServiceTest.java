@@ -1,0 +1,60 @@
+package com.rica.api;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.rica.api.exceptions.CorreoDuplicadoException;
+import com.rica.api.exceptions.RecursoNoEncontradoException;
+import com.rica.api.models.Investigador;
+import com.rica.api.repository.InvestigadorRepository;
+import com.rica.api.services.InvestigadorService;
+
+@ExtendWith(MockitoExtension.class)
+public class InvestigadorServiceTest {
+
+    @Mock
+    private InvestigadorRepository investigadorRepository;
+
+    @InjectMocks
+    private InvestigadorService investigadorService;
+
+    @Test
+    void buscarPorIdDevuelveElInvestigadorCuandoExiste() {
+        Investigador investigador = new Investigador(1L, "Ana Torres", "ana.torres@uptc.edu.co", "GIT-UPTC");
+        when(investigadorRepository.findById(1L)).thenReturn(Optional.of(investigador));
+
+        Investigador resultado = investigadorService.buscarPorId(1L);
+
+        assertThat(resultado.getNombreCompleto()).isEqualTo("Ana Torres");
+    }
+
+    @Test
+    void buscarPorIdLanzaExcepcionCuandoNoExiste() {
+        when(investigadorRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> investigadorService.buscarPorId(99L))
+                .isInstanceOf(RecursoNoEncontradoException.class)
+                .hasMessageContaining("99");
+    }
+
+    @Test
+    void registrarRechazaCorreoInstitucionalDuplicado() {
+        Investigador nuevo = new Investigador(null, "Carlos Ruiz", "carlos.ruiz@uptc.edu.co", "GIT-UPTC");
+        when(investigadorRepository.existsByCorreoInstitucional("carlos.ruiz@uptc.edu.co")).thenReturn(true);
+
+        assertThatThrownBy(() -> investigadorService.registrar(nuevo))
+                .isInstanceOf(CorreoDuplicadoException.class);
+
+        verify(investigadorRepository).existsByCorreoInstitucional("carlos.ruiz@uptc.edu.co");
+    }
+
+}
