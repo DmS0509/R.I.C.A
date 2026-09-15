@@ -14,7 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.rica.api.compartido.RecursoNoEncontradoException;
 import com.rica.api.investigadores.CorreoDuplicadoException;
+import com.rica.api.investigadores.CorreoInstitucional;
 import com.rica.api.investigadores.Investigador;
+import com.rica.api.investigadores.InvestigadorFactory;
 import com.rica.api.investigadores.InvestigadorRepository;
 import com.rica.api.investigadores.InvestigadorService;
 
@@ -24,12 +26,16 @@ public class InvestigadorServiceTest {
     @Mock
     private InvestigadorRepository investigadorRepository;
 
+    @Mock
+    private InvestigadorFactory investigadorFactory;
+
     @InjectMocks
     private InvestigadorService investigadorService;
 
     @Test
     void buscarPorIdDevuelveElInvestigadorCuandoExiste() {
-        Investigador investigador = new Investigador(1L, "Ana Torres", "ana.torres@uptc.edu.co", "GIT-UPTC");
+        Investigador investigador = new Investigador(1L, "Ana Torres",
+            new CorreoInstitucional("ana.torres@uptc.edu.co"), "GIT-UPTC");
         when(investigadorRepository.findById(1L)).thenReturn(Optional.of(investigador));
 
         Investigador resultado = investigadorService.buscarPorId(1L);
@@ -48,13 +54,14 @@ public class InvestigadorServiceTest {
 
     @Test
     void registrarRechazaCorreoInstitucionalDuplicado() {
-        Investigador nuevo = new Investigador(null, "Carlos Ruiz", "carlos.ruiz@uptc.edu.co", "GIT-UPTC");
-        when(investigadorRepository.existsByCorreoInstitucional("carlos.ruiz@uptc.edu.co")).thenReturn(true);
+        when(investigadorFactory.crear("Carlos Ruiz", "carlos.ruiz@uptc.edu.co", "GIT-UPTC"))
+            .thenThrow(new CorreoDuplicadoException("Correo duplicado"));
 
-        assertThatThrownBy(() -> investigadorService.registrar(nuevo))
+        assertThatThrownBy(() -> investigadorService.registrar(
+            "Carlos Ruiz", "carlos.ruiz@uptc.edu.co", "GIT-UPTC"))
                 .isInstanceOf(CorreoDuplicadoException.class);
 
-        verify(investigadorRepository).existsByCorreoInstitucional("carlos.ruiz@uptc.edu.co");
+        verify(investigadorFactory).crear("Carlos Ruiz", "carlos.ruiz@uptc.edu.co", "GIT-UPTC");
     }
 
 }
