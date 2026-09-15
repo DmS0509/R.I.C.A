@@ -12,11 +12,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.rica.api.exceptions.CorreoDuplicadoException;
-import com.rica.api.exceptions.RecursoNoEncontradoException;
-import com.rica.api.models.Investigador;
-import com.rica.api.repository.InvestigadorRepository;
-import com.rica.api.services.InvestigadorService;
+import com.rica.api.compartido.RecursoNoEncontradoException;
+import com.rica.api.investigadores.CorreoDuplicadoException;
+import com.rica.api.investigadores.Investigador;
+import com.rica.api.investigadores.InvestigadorRepository;
+import com.rica.api.investigadores.InvestigadorService;
 
 @ExtendWith(MockitoExtension.class)
 public class InvestigadorServiceTest {

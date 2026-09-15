@@ -1,4 +1,4 @@
-package com.rica.api.models;
+package com.rica.api.publicaciones;
 
 import java.util.Map;
 

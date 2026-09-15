@@ -1,4 +1,4 @@
-package com.rica.api.response;
+package com.rica.api.publicaciones;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.rica.api.controllers;
+package com.rica.api.plataforma;
 
 import java.util.Map;
 

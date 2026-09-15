@@ -1,4 +1,4 @@
-package com.rica.api.request;
+package com.rica.api.investigadores;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

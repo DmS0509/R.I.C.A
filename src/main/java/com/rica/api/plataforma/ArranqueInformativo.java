@@ -1,4 +1,4 @@
-package com.rica.api.services;
+package com.rica.api.plataforma;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

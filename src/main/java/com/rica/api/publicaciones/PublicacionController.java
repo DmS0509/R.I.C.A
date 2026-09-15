@@ -1,4 +1,4 @@
-package com.rica.api.controllers;
+package com.rica.api.publicaciones;
 
 import java.net.URI;
 import java.util.List;
@@ -11,12 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.rica.api.mappers.PublicacionMapper;
-import com.rica.api.models.Publicacion;
-import com.rica.api.request.PublicacionRequest;
-import com.rica.api.response.PublicacionResponse;
-import com.rica.api.services.PublicacionService;
 
 import jakarta.validation.Valid;
 
