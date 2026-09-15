@@ -1,6 +1,7 @@
 package com.rica.api.publicaciones;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,11 @@ public class PublicacionService {
     }
 
     public Publicacion registrar(Publicacion publicacion) {
-        if (!investigadorRepository.existsByCorreoInstitucional(publicacion.getInvestigadorCorreo())) {
+        boolean investigadorExiste = investigadorRepository.findAll().stream()
+            .anyMatch(investigador -> Objects.equals(
+                String.valueOf(investigador.getCorreoInstitucional()),
+                publicacion.getInvestigadorCorreo()));
+        if (!investigadorExiste) {
             throw new RecursoNoEncontradoException("No existe un investigador con correo " + publicacion.getInvestigadorCorreo());
         }
         return publicacionRepository.save(publicacion);
