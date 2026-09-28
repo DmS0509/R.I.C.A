@@ -1,4 +1,4 @@
-package com.rica.api.investigadores;
+package com.rica.api.investigadores.dominio;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;

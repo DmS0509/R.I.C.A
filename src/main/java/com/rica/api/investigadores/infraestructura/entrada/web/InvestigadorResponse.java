@@ -1,4 +1,4 @@
-package com.rica.api.investigadores;
+package com.rica.api.investigadores.infraestructura.entrada.web;
 
 public class InvestigadorResponse {
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.rica.api.investigadores.CorreoDuplicadoException;
+import com.rica.api.investigadores.dominio.CorreoDuplicadoException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

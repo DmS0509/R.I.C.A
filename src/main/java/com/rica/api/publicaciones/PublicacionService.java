@@ -6,7 +6,7 @@ import java.util.Objects;
 import org.springframework.stereotype.Service;
 
 import com.rica.api.compartido.RecursoNoEncontradoException;
-import com.rica.api.investigadores.InvestigadorRepository;
+import com.rica.api.investigadores.infraestructura.salida.InvestigadorRepository;
 
 @Service 
 public class PublicacionService {
