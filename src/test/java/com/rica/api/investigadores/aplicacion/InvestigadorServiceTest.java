@@ -1,4 +1,4 @@
-package com.rica.api;
+package com.rica.api.investigadores.aplicacion;
 
 import java.util.Optional;
 
@@ -13,18 +13,15 @@ import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.rica.api.compartido.RecursoNoEncontradoException;
-import com.rica.api.investigadores.CorreoDuplicadoException;
-import com.rica.api.investigadores.CorreoInstitucional;
-import com.rica.api.investigadores.Investigador;
-import com.rica.api.investigadores.InvestigadorFactory;
-import com.rica.api.investigadores.InvestigadorRepository;
-import com.rica.api.investigadores.InvestigadorService;
+import com.rica.api.investigadores.dominio.CorreoDuplicadoException;
+import com.rica.api.investigadores.dominio.CorreoInstitucional;
+import com.rica.api.investigadores.dominio.Investigador;
 
 @ExtendWith(MockitoExtension.class)
 public class InvestigadorServiceTest {
 
     @Mock
-    private InvestigadorRepository investigadorRepository;
+    private RepositorioInvestigadores repositorioInvestigadores;
 
     @Mock
     private InvestigadorFactory investigadorFactory;
@@ -36,7 +33,7 @@ public class InvestigadorServiceTest {
     void buscarPorIdDevuelveElInvestigadorCuandoExiste() {
         Investigador investigador = new Investigador(1L, "Ana Torres",
             new CorreoInstitucional("ana.torres@uptc.edu.co"), "GIT-UPTC");
-        when(investigadorRepository.findById(1L)).thenReturn(Optional.of(investigador));
+        when(repositorioInvestigadores.buscarPorId(1L)).thenReturn(Optional.of(investigador));
 
         Investigador resultado = investigadorService.buscarPorId(1L);
 
@@ -45,7 +42,7 @@ public class InvestigadorServiceTest {
 
     @Test
     void buscarPorIdLanzaExcepcionCuandoNoExiste() {
-        when(investigadorRepository.findById(99L)).thenReturn(Optional.empty());
+        when(repositorioInvestigadores.buscarPorId(99L)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> investigadorService.buscarPorId(99L))
                 .isInstanceOf(RecursoNoEncontradoException.class)
