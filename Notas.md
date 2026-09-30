@@ -1,5 +1,11 @@
 
 --------------------------------------------------- 
+# rica-api (archivado)
+
+Este proyecto fue dividido en `investigadores_service` y `publicaciones_service`
+disponible en: https://github.com/DmS0509/RICA_Microservicios.git
+
+--------------------------------------------------- 
 # _TALLER DDD_ 
 
 
@@ -69,5 +75,17 @@
 
 * `LimitePublicacionesService` pertenece al núcleo, esto debido a que encapsula una regla de negocio **_(máximo 5 publicaciones por año)_**, aunque este originalmente dependia de `PublicacionRepository` **(MongoDB)** y de la entidad `Investigador` de otro dominio; por lo que se ajusto para que dependiera de un solo puerto propio (`RepositorioPublicacines`).
 
+--------------------------------------------------- 
+# _TALLER MICROSERVICIOS_
 
+| Paquete / clase actual | Destino |
+|---|---|
+| `investigadores.*` | `investigadores_service` |
+| `publicaciones.*` | `publicaciones_service` |
+| `compartido.GlobalExceptionHandler`, `RecursoNoEncontradoException` | Se duplica en ambos |
+| `plataforma.StatusController`, CorsConfig | Se duplica en ambos, adaptado |
+| `plataforma.ArranqueInformativo`, `SaludoInstitucionalService` | Se descarta (demo del Tutorial 2) |
+
+* Decisión de arquitectura: duplicar `compartido` evita acoplar los servicios,
+pero obliga a mantener dos copias. 
 
