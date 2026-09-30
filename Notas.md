@@ -3,6 +3,7 @@
 # rica-api (archivado)
 
 Este proyecto fue dividido en `investigadores_service` y `publicaciones_service`
+disponible en: https://github.com/DmS0509/RICA_Microservicios.git
 
 --------------------------------------------------- 
 # _TALLER DDD_ 
