@@ -1,4 +1,4 @@
-package com.rica.api.publicaciones;
+package com.rica.api.publicaciones.infraestructura.entrada.web;
 
 import java.util.Map;
 
