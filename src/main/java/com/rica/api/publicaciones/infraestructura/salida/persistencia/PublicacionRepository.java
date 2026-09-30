@@ -1,8 +1,10 @@
-package com.rica.api.publicaciones;
+package com.rica.api.publicaciones.infraestructura.salida.persistencia;
 
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.rica.api.publicaciones.dominio.Publicacion;
 
 public interface PublicacionRepository extends MongoRepository<Publicacion, String> {
 

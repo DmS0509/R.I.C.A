@@ -39,6 +39,9 @@
 --------------------------------------------------- 
 # _TALLER ARQUITECTURA HEXAGONAL_
 
+--------------------------------------------------- 
+## _INVESTIGADORES_ 
+
 > **_`InvestigadorRepository` es una interfaz, nunca una clase concreta, desde el Tutorial 4. Según la guía (sección 3), ¿es un puerto primario o secundario? Justifica con una frase: ¿quién inicia la llamada, el núcleo o algo externo?_**
 
 * `InvestigadorRepository` es un puerto secundario, esto debido a que el nucleo de la aplicación inicia la llamada hacia el exterior (base de datos) utilizando la interfaz basada en `SpringDataJPA`.
@@ -55,6 +58,16 @@
 
 * `InvestigadorFactory` pertenece al núcleo dado que encapsula la lógica del negocio critica para la creación de entidades y validación de reglas del dominio (ejm: restriccion de correos duplicados), a pesar de estar apoyada por anotaciones de infraestructura como `@Component`.
 
+--------------------------------------------------- 
+## _PUBLICACIONES_ 
+
+* `PublicacionRepository` es un puerto secundario, ya que el núcleo de la aplicación es quien inicia la llamada hacia el exterior **(MongoDB)** mediante una interfaz basada en Spring Data MongoDB.
+
+* `PublicacionController` es un adaptador primario, que envuelve la tecnología Spring Web y API REST (HTTP) mediante anotaciones como `RestController` y traduce con `PublicacionMapper` entre `PublicacionRequest/Response` y la entidad.
+
+* Lo que falta en `PublicacionService` para un puerto primario explicito es una interfaz de puerto primario (`PublicacionUseCase`) que desacople el controlador del servicio, permitiendo que el adaptador primario llame a una abstracción del núcleo y no a una clase concreta.
+
+* `LimitePublicacionesService` pertenece al núcleo, esto debido a que encapsula una regla de negocio **_(máximo 5 publicaciones por año)_**, aunque este originalmente dependia de `PublicacionRepository` **(MongoDB)** y de la entidad `Investigador` de otro dominio; por lo que se ajusto para que dependiera de un solo puerto propio (`RepositorioPublicacines`).
 
 
 

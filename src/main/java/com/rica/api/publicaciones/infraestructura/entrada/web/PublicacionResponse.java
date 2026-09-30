@@ -1,14 +1,9 @@
-package com.rica.api.publicaciones;
+package com.rica.api.publicaciones.infraestructura.entrada.web;
 
 import java.util.Map;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class PublicacionResponse {
 
-@Document(collection = "publicaciones")
-public class Publicacion {
-
-    @Id 
     private String id;
 
     private String investigadorCorreo;
@@ -17,7 +12,16 @@ public class Publicacion {
     private Integer anio;
     private Map<String, String> detalles;
 
-    public Publicacion() {
+    public PublicacionResponse() {
+    }
+
+    public PublicacionResponse(String id, String investigadorCorreo, String titulo, String tipo, Integer anio, Map<String, String> detalles) {
+        this.id = id;
+        this.investigadorCorreo = investigadorCorreo;
+        this.titulo = titulo;
+        this.tipo = tipo;
+        this.anio = anio;
+        this.detalles = detalles;
     }
 
     public String getId() {
@@ -68,6 +72,5 @@ public class Publicacion {
         this.detalles = detalles;
     }
 
-
-
+    
 }

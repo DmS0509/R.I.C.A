@@ -1,4 +1,4 @@
-package com.rica.api.publicaciones;
+package com.rica.api.publicaciones.infraestructura.entrada.web;
 
 import java.net.URI;
 import java.util.List;
@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rica.api.publicaciones.aplicacion.PublicacionService;
+import com.rica.api.publicaciones.dominio.Publicacion;
+
+
 import jakarta.validation.Valid;
 
 @RestController
@@ -24,19 +28,19 @@ public class PublicacionController {
         this.publicacionService = publicacionService;
     }
 
-    @GetMapping
+     @GetMapping
     public List<PublicacionResponse> listarPorInvestigador(@RequestParam String investigadorCorreo) {
         return publicacionService.listarPorInvestigador(investigadorCorreo).stream()
                 .map(PublicacionMapper::aResponse)
                 .toList();
     }
-
+ 
     @GetMapping("/{id}")
     public PublicacionResponse buscarPorId(@PathVariable String id) {
         Publicacion publicacion = publicacionService.buscarPorId(id);
         return PublicacionMapper.aResponse(publicacion);
     }
-
+ 
     @PostMapping
     public ResponseEntity<PublicacionResponse> registrar(@Valid @RequestBody PublicacionRequest request) {
         Publicacion publicacion = PublicacionMapper.aEntidad(request);
