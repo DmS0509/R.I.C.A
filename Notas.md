@@ -1,5 +1,10 @@
 
 --------------------------------------------------- 
+# rica-api (archivado)
+
+Este proyecto fue dividido en `investigadores_service` y `publicaciones_service`
+
+--------------------------------------------------- 
 # _TALLER DDD_ 
 
 
@@ -56,5 +61,17 @@
 * `InvestigadorFactory` pertenece al núcleo dado que encapsula la lógica del negocio critica para la creación de entidades y validación de reglas del dominio (ejm: restriccion de correos duplicados), a pesar de estar apoyada por anotaciones de infraestructura como `@Component`.
 
 
+--------------------------------------------------- 
+# _TALLER MICROSERVICIOS_
 
+| Paquete / clase actual | Destino |
+|---|---|
+| `investigadores.*` | `investigadores_service` |
+| `publicaciones.*` | `publicaciones_service` |
+| `compartido.GlobalExceptionHandler`, `RecursoNoEncontradoException` | Se duplica en ambos |
+| `plataforma.StatusController`, CorsConfig | Se duplica en ambos, adaptado |
+| `plataforma.ArranqueInformativo`, `SaludoInstitucionalService` | Se descarta (demo del Tutorial 2) |
+
+* Decisión de arquitectura: duplicar `compartido` evita acoplar los servicios,
+pero obliga a mantener dos copias. 
 
